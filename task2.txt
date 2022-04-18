@@ -1,0 +1,39 @@
+
+import numpy as np
+import pandas as pd
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn import metrics
+
+
+heartds = pd.read_csv('heart.csv')
+
+heartds
+​
+​
+X = heartds.drop(columns='trestbps', axis=1)
+
+Y = heartds['trestbps']
+
+print(X)
+
+print(Y)
+​
+​
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.2, random_state=2)
+
+print(X.shape, X_train.shape, X_test.shape)
+
+regressor = LinearRegression()
+regressor.fit(X_train, Y_train)
+training_data_prediction =regressor.predict(X_train)
+r2_train = metrics.r2_score(Y_train, training_data_prediction)
+print('R squared vale : ', r2_train)
+test_data_prediction =regressor.predict(X_test)
+​
+​
+r2_test = metrics.r2_score(Y_test, test_data_prediction)
+print('R squared vale : ', r2_test)
+​
+​
